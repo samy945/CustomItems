@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,7 +21,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,9 +33,9 @@ public class test extends JavaPlugin implements Listener  {
 	public void onEnable() {
 		this.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.addRecipe(cocomilkpink.Pinkcoco());
-		Bukkit.addRecipe(getRecipe());
-		getServer().addRecipe(cocomilkpink.Pinkcoco());
-		getServer().addRecipe(getRecipe());
+		
+		
+		
 	}
 	
 	@Override
@@ -138,9 +136,9 @@ public class test extends JavaPlugin implements Listener  {
 	
 	public static ItemStack getEmptyPinkBottleMilk() {
 		
-		ItemStack PinkEmptyBottleMilk = new ItemStack(Material.POTION);
+		ItemStack PinkEmptyBottleMilk = new ItemStack(Material.MILK_BUCKET);
 		ItemMeta meta = PinkEmptyBottleMilk.getItemMeta();
-		ItemMeta outputMeta = PinkEmptyBottleMilk.getItemMeta();
+		
 		meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Pink Bottle");
 		List<String> lore = new ArrayList<String>();
 		lore.add("");
@@ -156,14 +154,14 @@ public class test extends JavaPlugin implements Listener  {
 		
 		
 		PinkEmptyBottleMilk.setItemMeta(meta);
-		PinkEmptyBottleMilk.setItemMeta(outputMeta);
+
 		return PinkEmptyBottleMilk;
 	}
 	public static ItemStack getEmptyPinkBottlecocoMilk() {
 		
 		ItemStack PinkEmptyBottlecocoMilk = new ItemStack(Material.POTION);
 		ItemMeta meta = PinkEmptyBottlecocoMilk.getItemMeta();
-		ItemMeta outputMeta = PinkEmptyBottlecocoMilk.getItemMeta();
+
 		meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Pink Bottle");
 		List<String> lore = new ArrayList<String>();
 		lore.add("");
@@ -179,26 +177,11 @@ public class test extends JavaPlugin implements Listener  {
 		
 		
 		PinkEmptyBottlecocoMilk.setItemMeta(meta);
-		PinkEmptyBottlecocoMilk.setItemMeta(outputMeta);
+
 		return PinkEmptyBottlecocoMilk;
 	}	
-	public ShapedRecipe getRecipe() {
-		   
-		   
-		ItemStack item = test.getEmptyPinkBottlecocoMilk();
-		   
-		   
-		   NamespacedKey key = new NamespacedKey((Plugin) this, ChatColor.LIGHT_PURPLE + "" + net.md_5.bungee.api.ChatColor.BOLD + "Pink Bottle");
-		   
-		   ShapedRecipe recipe = new ShapedRecipe(key, item);
-		   
-		   recipe.shape("SE ", "   ", "   ");
-		   
-		   recipe.setIngredient('S', Material.POTION);
-		   recipe.setIngredient('E', Material.COCOA_BEANS);
-		   
-		   return recipe;
-} 
+
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
 		if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()){
@@ -303,8 +286,30 @@ public class test extends JavaPlugin implements Listener  {
 			            }, 1L);
 			        }
 			  }
-				
-				
+				@EventHandler
+			    public void onConsume2(PlayerItemConsumeEvent event) {
+			        if (event.getPlayer().getInventory().getItemInOffHand().getType().equals(Material.MILK_BUCKET))
+			        if (event.getPlayer().getInventory().getItemInOffHand().getItemMeta().hasLore()){
+			        	Bukkit.getServer().getScheduler().runTaskLaterAsynchronously((Plugin) this, (Runnable)new Runnable() {
+			                @Override
+			                public void run() {
+			                    event.getPlayer().getInventory().setItemInOffHand(new ItemStack(getEmptyPinkBottle()));
+			                }
+			            }, 1L);
+			        }
+			  }
+				@EventHandler
+			    public void onConsume3(PlayerItemConsumeEvent event) {
+			        if (event.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.MILK_BUCKET))
+			        if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
+			        	Bukkit.getServer().getScheduler().runTaskLaterAsynchronously((Plugin) this, (Runnable)new Runnable() {
+			                @Override
+			                public void run() {
+			                    event.getPlayer().getInventory().setItemInMainHand(new ItemStack(getEmptyPinkBottle()));
+			                }
+			            }, 1L);
+			        }
+				}
 }
 			
 				

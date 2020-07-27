@@ -16,8 +16,10 @@ public class cocomilkpink {
 	private static Plugin plugin = test.getPlugin(test.class);
     public static ShapelessRecipe Pinkcoco() {
         
-        ItemStack item = test.getEmptyPinkBottlecocoMilk();//Custom Item
-        
+        ItemStack item = (ItemStack) test.getEmptyPinkBottlecocoMilk();//Custom Item
+
+		
+		
         NamespacedKey key = new NamespacedKey((plugin), "pink_bottle");
         
         ShapelessRecipe Pinkcoco = new ShapelessRecipe(key, item);
