@@ -33,45 +33,29 @@ public class test extends JavaPlugin implements Listener  {
 	public void onEnable() {
 		this.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.addRecipe(cocomilkpink.Pinkcoco());
-		
-		
-		
 	}
 	
 	@Override
 	public void onDisable() {
-
 	}
-
-
-
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
 		Player player = (Player) sender;
-
-			
-		
-		
-		
 		if (!player.hasPermission("getBottle.use")) {
 			player.sendMessage(ChatColor.RED + "you do not have permission to use this command");
 			return  true;
 	}
-		
 		if (lable.equalsIgnoreCase("getBottle")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(ChatColor.RED + "You cannot use this command!");
 				return true;
-	}	
-			
+	}		
 			if (player.getInventory().firstEmpty() == -1) {
-				
 				Location loc = player.getLocation();
 				World world = player.getWorld();
-				
 				world.dropItemNaturally(loc, getPinkBottle());
 				player.sendMessage(ChatColor.GOLD + "You Got A Bottle But It Is On The Ground!");
 				return true;
-				
 	}
 			player.getInventory().addItem(getPinkBottle());
 			player.sendMessage(ChatColor.GOLD + "You Got A Bottle");
@@ -80,15 +64,10 @@ public class test extends JavaPlugin implements Listener  {
 		
 		return false;
 	} 
-	
-	public static ItemStack getPinkBottle() {
-		
+		public static ItemStack getPinkBottle() {
 		ItemStack PinkBottle = new ItemStack(Material.POTION);
 		ItemMeta meta = PinkBottle.getItemMeta();
-		
 		meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Pink Bottle");
-		
-
 		meta.setCustomModelData(11);
 		List<String> lore = new ArrayList<String>();
 		lore.add("");
@@ -100,16 +79,10 @@ public class test extends JavaPlugin implements Listener  {
 		meta.addItemFlags(ItemFlag.HIDE_DESTROYS);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		meta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-
 		PinkBottle.setItemMeta(meta);
 		return PinkBottle;
 	}
-
-	
-
-
 	public static ItemStack getEmptyPinkBottle() {
-		
 		ItemStack PinkEmptyBottle = new ItemStack(Material.BOWL);
 		ItemMeta meta = PinkEmptyBottle.getItemMeta();
 		
@@ -125,15 +98,9 @@ public class test extends JavaPlugin implements Listener  {
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		meta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
 		meta.setUnbreakable(true);
-		
-		
 		PinkEmptyBottle.setItemMeta(meta);
-		
 		return PinkEmptyBottle;
 	}
-
-
-	
 	public static ItemStack getEmptyPinkBottleMilk() {
 		
 		ItemStack PinkEmptyBottleMilk = new ItemStack(Material.MILK_BUCKET);
@@ -151,17 +118,13 @@ public class test extends JavaPlugin implements Listener  {
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		meta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
 		meta.setUnbreakable(true);
-		
-		
 		PinkEmptyBottleMilk.setItemMeta(meta);
-
 		return PinkEmptyBottleMilk;
 	}
 	public static ItemStack getEmptyPinkBottlecocoMilk() {
 		
 		ItemStack PinkEmptyBottlecocoMilk = new ItemStack(Material.POTION);
 		ItemMeta meta = PinkEmptyBottlecocoMilk.getItemMeta();
-
 		meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Pink Bottle");
 		List<String> lore = new ArrayList<String>();
 		lore.add("");
@@ -174,28 +137,16 @@ public class test extends JavaPlugin implements Listener  {
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		meta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
 		meta.setUnbreakable(true);
-		
-		
 		PinkEmptyBottlecocoMilk.setItemMeta(meta);
-
 		return PinkEmptyBottlecocoMilk;
 	}	
-
-	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
 		if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()){
 			Player player = (Player) event.getPlayer();
-			
-			
-			
 			player.getInventory().setItemInMainHand(getPinkBottle());
 			player.updateInventory();
-           
-			
-			
-			
-	     }
+ 	     }
 	}
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerCowClickEvent(PlayerInteractEntityEvent event) {
@@ -203,13 +154,9 @@ public class test extends JavaPlugin implements Listener  {
 		if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore())
 		if (event.getRightClicked() instanceof Cow) {
 			
-			Player player = (Player) event.getPlayer();
-			
-
+			Player player = (Player) event.getPlayer();	
 					player.getInventory().setItemInMainHand(getEmptyPinkBottleMilk());
 					player.updateInventory();		
-			
-			
 	     }
 	}
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -221,30 +168,21 @@ public class test extends JavaPlugin implements Listener  {
 				if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 					 if(event.getClickedBlock().getRelative(event.getBlockFace()).getType() == Material.WATER) {
 						player.getInventory().contains(getEmptyPinkBottle());
-							player.getInventory().setItemInMainHand(getPinkBottle());
-							player.updateInventory();
-							
+						player.getInventory().setItemInMainHand(getPinkBottle());
+						player.updateInventory();
 					 }
 				}
 			}
-				
-			
-	
-				
-			}
+		}
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerItemConsume2(PlayerItemConsumeEvent event) {
 		if (event.getPlayer().getInventory().getItemInOffHand().getItemMeta().hasLore()){
 			Player player = (Player) event.getPlayer();
-			
 			player.getInventory().remove(Material.GLASS_BOTTLE);
 			player.getInventory().setItemInOffHand(getEmptyPinkBottle());
 			player.updateInventory();	
-			
 	     }
 	}
-			
-
 			@EventHandler(priority = EventPriority.HIGHEST)
 			public void onClick1(PlayerInteractEvent event) {
 				if (event.getPlayer().getInventory().getItemInOffHand().getType().equals(Material.BOWL))
@@ -256,10 +194,8 @@ public class test extends JavaPlugin implements Listener  {
 								player.getInventory().contains(getEmptyPinkBottle());
 									player.getInventory().setItemInOffHand(getPinkBottle());
 									player.updateInventory();
-									
 						}
-					}
-						
+					}	
 				}
 			}
 			@EventHandler
@@ -310,7 +246,7 @@ public class test extends JavaPlugin implements Listener  {
 			            }, 1L);
 			        }
 				}
-}
+			}
 			
 				
 				
