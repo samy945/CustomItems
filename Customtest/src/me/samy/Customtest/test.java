@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -246,6 +247,25 @@ public class test extends JavaPlugin implements Listener  {
 			            }, 1L);
 			        }
 				}
+				@EventHandler
+				public void onCraft(CraftItemEvent event) {
+					if (event.getRecipe().equals(cocomilkpink.Pinkcoco())) {
+						Bukkit.getServer().getScheduler().runTaskLaterAsynchronously((Plugin) this, (Runnable)new Runnable() {
+							@Override
+			                public void run() {
+								event.getInventory().remove(Material.BUCKET);
+								
+							}
+							
+							
+						}, 1L);
+						
+						
+						
+						
+					}
+				}
+				
 			}
 			
 				
