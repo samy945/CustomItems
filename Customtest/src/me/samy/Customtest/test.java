@@ -1,6 +1,7 @@
 package me.samy.Customtest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -20,11 +21,13 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.samy.Customtest.craft.cocomilkpink;
 
@@ -247,25 +250,25 @@ public class test extends JavaPlugin implements Listener  {
 			            }, 1L);
 			        }
 				}
+                
                 @EventHandler
-                public void oninvEvent(CraftItemEvent event) {
-                   if (event.getRecipe().equals(cocomilkpink.Pinkcoco())) {
-                	   Bukkit.getServer().getScheduler().runTaskLaterAsynchronously((Plugin) this, (Runnable)new Runnable() {
-			                @Override
-			                public void run() {		  
-                	   ItemStack[] grid = event.getInventory().getMatrix();
-                        		   for(ItemStack item : grid) {
-                        		     if(item != null && item.getType().equals(Material.BUCKET)) {
-                        		    	 item = null;
-                        		    	 grid[0] = item;
-                        		    	 event.getInventory().setMatrix(grid);
-                        		     }
-                        		   } 
-			                	}
-                	   		}, 1L);
-                   		}
-                	}
-				}
+                public void onCraft(CraftItemEvent event) {
+                    if (event.getRecipe().getResult().isSimilar(cocomilkpink.Pinkcoco().getResult())) {
+                        Player player = (Player) event.getWhoClicked();
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                InventoryView inv = player.getOpenInventory();
+                                for (int slot : Arrays.asList(1,2,3,4,5,6,7,8,9)) {
+                                    if (inv.getItem(slot).isSimilar(new ItemStack(Material.BUCKET)))
+                                        inv.setItem(slot, null);
+                                }
+                            }
+                        }.runTaskLater(this, 0L);
+                    }
+                }
+}
+
 			
 			
 				
