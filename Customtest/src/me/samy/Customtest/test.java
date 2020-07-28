@@ -247,26 +247,26 @@ public class test extends JavaPlugin implements Listener  {
 			            }, 1L);
 			        }
 				}
-				@EventHandler
-				public void onCraft(CraftItemEvent event) {
-					if (event.getRecipe().equals(cocomilkpink.Pinkcoco())) {
-						Bukkit.getServer().getScheduler().runTaskLaterAsynchronously((Plugin) this, (Runnable)new Runnable() {
-							@Override
-			                public void run() {
-								event.getInventory().remove(Material.BUCKET);
-								
-							}
-							
-							
-						}, 1L);
-						
-						
-						
-						
-					}
+                @EventHandler
+                public void oninvEvent(CraftItemEvent event) {
+                   if (event.getRecipe().equals(cocomilkpink.Pinkcoco())) {
+                	   Bukkit.getServer().getScheduler().runTaskLaterAsynchronously((Plugin) this, (Runnable)new Runnable() {
+			                @Override
+			                public void run() {		  
+                	   ItemStack[] grid = event.getInventory().getMatrix();
+                        		   for(ItemStack item : grid) {
+                        		     if(item != null && item.getType().equals(Material.BUCKET)) {
+                        		    	 item = null;
+                        		    	 grid[0] = item;
+                        		    	 event.getInventory().setMatrix(grid);
+                        		     }
+                        		   } 
+			                	}
+                	   		}, 1L);
+                   		}
+                	}
 				}
-				
-			}
+			
 			
 				
 				
