@@ -27,6 +27,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.samy.Customtest.craft.cocomilkpink;
@@ -141,6 +143,7 @@ public class test extends JavaPlugin implements Listener  {
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		meta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
 		meta.setUnbreakable(true);
+		
 		PinkEmptyBottlecocoMilk.setItemMeta(meta);
 		return PinkEmptyBottlecocoMilk;
 	}	
@@ -222,6 +225,7 @@ public class test extends JavaPlugin implements Listener  {
 			                @Override
 			                public void run() {
 			                    event.getPlayer().getInventory().setItemInOffHand(new ItemStack(getEmptyPinkBottle()));
+			                    
 			                }
 			            }, 1L);
 			        }
@@ -234,6 +238,10 @@ public class test extends JavaPlugin implements Listener  {
 			                @Override
 			                public void run() {
 			                    event.getPlayer().getInventory().setItemInOffHand(new ItemStack(getEmptyPinkBottle()));
+			                    Player player = (Player) event.getPlayer();
+			                    player.setFoodLevel(20);
+			                    player.setSaturation(20);
+			                    
 			                }
 			            }, 1L);
 			        }
@@ -246,6 +254,9 @@ public class test extends JavaPlugin implements Listener  {
 			                @Override
 			                public void run() {
 			                    event.getPlayer().getInventory().setItemInMainHand(new ItemStack(getEmptyPinkBottle()));
+			                    Player player = (Player) event.getPlayer();
+			                    player.setFoodLevel(20);
+			                    player.setSaturation(20);
 			                }
 			            }, 1L);
 			        }
@@ -267,10 +278,33 @@ public class test extends JavaPlugin implements Listener  {
                         }.runTaskLater(this, 0L);
                     }
                 }
+                @EventHandler
+                public void oncocoDrink(PlayerItemConsumeEvent event) {
+                	if (event.getPlayer().getInventory().getItemInMainHand().equals(getEmptyPinkBottlecocoMilk())) {
+                		Player player = (Player) event.getPlayer();
+                		player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 24000, 9, true, true));
+                		player.setFoodLevel(20);
+                		player.setSaturation(20);
+                		return;
+                		
+                	}
+                	
+                }
+                @EventHandler
+                public void oncocoDrink1(PlayerItemConsumeEvent event) {
+                	if (event.getPlayer().getInventory().getItemInOffHand().equals(getEmptyPinkBottlecocoMilk())) {
+                		Player player = (Player) event.getPlayer();
+                		player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 24000, 9, true, true));
+                		player.setFoodLevel(20);
+                		player.setSaturation(20);
+                		return;
+
+                
 }
 
 			
-			
+                }
+}
 				
 				
 				
