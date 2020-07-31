@@ -31,14 +31,17 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import me.samy.Customtest.Commands.ChangeCommand;
 import me.samy.Customtest.craft.cocomilkpink;
 
 public class test extends JavaPlugin implements Listener  {
+	public  Plugin plugin = (Plugin) this;
 	public static List<String> list = new ArrayList<String>(); 
 	@Override
 	public void onEnable() {
 		this.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.addRecipe(cocomilkpink.Pinkcoco());
+		this.getCommand("Change").setExecutor(new ChangeCommand());
 	}
 	
 	@Override
@@ -278,11 +281,13 @@ public class test extends JavaPlugin implements Listener  {
                         }.runTaskLater(this, 0L);
                     }
                 }
+
                 @EventHandler
                 public void oncocoDrink(PlayerItemConsumeEvent event) {
                 	if (event.getPlayer().getInventory().getItemInMainHand().equals(getEmptyPinkBottlecocoMilk())) {
                 		Player player = (Player) event.getPlayer();
-                		player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 24000, 9, true, true));
+                		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 6000, 1, true));
+                		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 6000, 1, true));
                 		player.setFoodLevel(20);
                 		player.setSaturation(20);
                 		return;
@@ -294,7 +299,8 @@ public class test extends JavaPlugin implements Listener  {
                 public void oncocoDrink1(PlayerItemConsumeEvent event) {
                 	if (event.getPlayer().getInventory().getItemInOffHand().equals(getEmptyPinkBottlecocoMilk())) {
                 		Player player = (Player) event.getPlayer();
-                		player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 24000, 9, true, true));
+                		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 6000, 1, true));
+                		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 6000, 1, true));
                 		player.setFoodLevel(20);
                 		player.setSaturation(20);
                 		return;

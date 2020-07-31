@@ -6,4 +6,5 @@ api-version: 1.15
 
 commands:
   getbottle:
+  change:
   
