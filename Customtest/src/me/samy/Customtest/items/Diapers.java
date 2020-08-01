@@ -40,7 +40,7 @@ public class Diapers {
 	meta.setDisplayName("Pullup");
 	List<String> lore = new ArrayList<String>();
 	lore.add("");
-	meta.setCustomModelData(20);
+	meta.setCustomModelData(21);
 	meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 	meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 	meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
@@ -60,7 +60,7 @@ public class Diapers {
 	meta.setDisplayName("Thick Diaper");
 	List<String> lore = new ArrayList<String>();
 	lore.add("");
-	meta.setCustomModelData(20);
+	meta.setCustomModelData(22);
 	meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 	meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 	meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
@@ -81,7 +81,7 @@ public class Diapers {
 	meta.setDisplayName("Undies");
 	List<String> lore = new ArrayList<String>();
 	lore.add("");
-	meta.setCustomModelData(20);
+	meta.setCustomModelData(23);
 	meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 	meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 	meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
@@ -101,7 +101,7 @@ public class Diapers {
 	meta.setDisplayName("Sleepy Diaper");
 	List<String> lore = new ArrayList<String>();
 	lore.add("");
-	meta.setCustomModelData(20);
+	meta.setCustomModelData(24);
 	meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 	meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 	meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
