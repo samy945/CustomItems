@@ -21,6 +21,8 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -30,11 +32,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.samy.Customtest.Commands.ChangeCommand;
+import me.samy.Customtest.Commands.score.score;
 import me.samy.Customtest.craft.cocomilkpink;
 
-public class test extends JavaPlugin implements Listener  {
+public class test<LobbyBoard> extends JavaPlugin implements Listener  {
+	public static Scoreboard b;
+	public static Objective o;
+	public static Score s;
+	
+	
 	public  Plugin plugin = (Plugin) this;
 	public static List<String> list = new ArrayList<String>(); 
 	@Override
@@ -42,6 +55,11 @@ public class test extends JavaPlugin implements Listener  {
 		this.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.addRecipe(cocomilkpink.Pinkcoco());
 		this.getCommand("Change").setExecutor(new ChangeCommand());
+		this.getServer().getPluginManager().registerEvents(new score(), this);
+		
+		
+
+		
 	}
 	
 	@Override
@@ -308,7 +326,39 @@ public class test extends JavaPlugin implements Listener  {
                 
 }
 
-			
+                }
+                @EventHandler
+                public void onJoin(PlayerJoinEvent event) {
+                	join((PlayerJoinEvent) event.getPlayer());
+                	
+                }
+                @EventHandler
+                public void onQuit(PlayerQuitEvent event) {
+                LobbyBoard b = Lobbyboard(event.getPlayer().getUniqueId());
+                if (b.hasID())
+                	(b.stop();
+                
+}
+                	@EventHandler
+                	public void join(PlayerJoinEvent event) {
+                		
+                		Player player = event.getPlayer();
+                		
+                		ScoreboardManager m = Bukkit.getScoreboardManager();
+                		Scoreboard b = m.getNewScoreboard();
+                		
+                	
+                		Objective o = b.registerNewObjective("test", "dummy");
+                		o.setDisplayName(ChatColor.LIGHT_PURPLE + "test");
+                		o.setDisplaySlot(DisplaySlot.SIDEBAR);
+                		
+                		Score test = o.getScore(ChatColor.WHITE + "test" + ChatColor.GOLD + "10000");
+                		test.setScore(1);
+                		
+                		player.setScoreboard(b);
+                		
+                		
+                				
                 }
 }
 				
