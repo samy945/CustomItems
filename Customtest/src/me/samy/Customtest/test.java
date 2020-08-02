@@ -22,7 +22,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -39,13 +38,16 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.samy.Customtest.Commands.ChangeCommand;
-import me.samy.Customtest.Commands.score.score;
+import me.samy.Customtest.Commands.bottlefillcommand;
 import me.samy.Customtest.craft.cocomilkpink;
 
-public class test<LobbyBoard> extends JavaPlugin implements Listener  {
+public class test extends JavaPlugin implements Listener  {
 	public static Scoreboard b;
 	public static Objective o;
 	public static Score s;
+	
+	
+	
 	
 	
 	public  Plugin plugin = (Plugin) this;
@@ -55,13 +57,21 @@ public class test<LobbyBoard> extends JavaPlugin implements Listener  {
 		this.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.addRecipe(cocomilkpink.Pinkcoco());
 		this.getCommand("Change").setExecutor(new ChangeCommand());
-		this.getServer().getPluginManager().registerEvents(new score(), this);
+		this.getCommand("//fill").setExecutor(new bottlefillcommand());
+		this.getServer().getPluginManager().registerEvents(this, this);
 		
-		
+		if (!Bukkit.getOnlinePlayers().isEmpty())
+			for (Player b : Bukkit.getOnlinePlayers()) {
+				createBoard(b);
+			}
 
 		
 	}
 	
+
+		
+	
+
 	@Override
 	public void onDisable() {
 	}
@@ -309,10 +319,10 @@ public class test<LobbyBoard> extends JavaPlugin implements Listener  {
                 		player.setFoodLevel(20);
                 		player.setSaturation(20);
                 		return;
-                		
                 	}
-                	
-                }
+                	}
+
+                
                 @EventHandler
                 public void oncocoDrink1(PlayerItemConsumeEvent event) {
                 	if (event.getPlayer().getInventory().getItemInOffHand().equals(getEmptyPinkBottlecocoMilk())) {
@@ -324,46 +334,35 @@ public class test<LobbyBoard> extends JavaPlugin implements Listener  {
                 		return;
 
                 
-}
+                		}
 
-                }
-                @EventHandler
-                public void onJoin(PlayerJoinEvent event) {
-                	join((PlayerJoinEvent) event.getPlayer());
-                	
-                }
-                @EventHandler
-                public void onQuit(PlayerQuitEvent event) {
-                LobbyBoard b = Lobbyboard(event.getPlayer().getUniqueId());
-                if (b.hasID())
-                	(b.stop();
                 
-}
-                	@EventHandler
-                	public void join(PlayerJoinEvent event) {
-                		
-                		Player player = event.getPlayer();
-                		
-                		ScoreboardManager m = Bukkit.getScoreboardManager();
-                		Scoreboard b = m.getNewScoreboard();
-                		
-                	
-                		Objective o = b.registerNewObjective("test", "dummy");
-                		o.setDisplayName(ChatColor.LIGHT_PURPLE + "test");
-                		o.setDisplaySlot(DisplaySlot.SIDEBAR);
-                		
-                		Score test = o.getScore(ChatColor.WHITE + "test" + ChatColor.GOLD + "10000");
-                		test.setScore(1);
-                		
-                		player.setScoreboard(b);
-                		
-                		
-                				
-                }
-}
+                
+                	}
 				
-				
-				
+
+
+
+
+
+				@EventHandler
+            	public void onJoin(PlayerJoinEvent event) {
+            		createBoard(event.getPlayer());
+            	}
+
+            	public void createBoard(Player player) {
+            		ScoreboardManager manager = Bukkit.getScoreboardManager();
+            		Scoreboard board = manager.getNewScoreboard();
+            		Objective obj = board.registerNewObjective("HubScoreboard-1", "dummy",
+            				ChatColor.translateAlternateColorCodes('&', "&a&l<< &2&lCodedRed &a&l>>"));
+            		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+            		player.setScoreboard(board);
+            	}
+
+            }
+
+
 				
 				
 

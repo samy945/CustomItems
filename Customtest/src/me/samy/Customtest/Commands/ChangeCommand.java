@@ -71,6 +71,7 @@ if(lable.equalsIgnoreCase("Change")) {
 						SleepyDiaperList.put(UUID, 1);
 						player.sendMessage(ChatColor.translateAlternateColorCodes('&',
 								"You powder up and change yourself into a fresh Diaper"));
+						SleepyDiaperList.put(UUID, 1);
 					}
 					return true;
 				}
@@ -83,7 +84,10 @@ if(lable.equalsIgnoreCase("Change")) {
 					PullupList.put(UUID, 1);
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
 							"You powder up and change yourself into a fresh Diaper"));
-				}
+					
+						
+					}
+				
 				if (Item2.equals(Diapers.Thickdiaper())) {
 					
 					ThickdiaperList.put(UUID, 1);
