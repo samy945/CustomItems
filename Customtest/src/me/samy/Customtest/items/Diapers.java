@@ -70,7 +70,7 @@ public class Diapers {
 	meta.setUnbreakable(true);
 	
 	Thickdiaper.setItemMeta(meta);	
-	return Thickdiaper();
+	return Thickdiaper;
 		
 		
 		}
